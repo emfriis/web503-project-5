@@ -18,7 +18,7 @@ let currentActiveCard = 0 // Which card to show
 const cardsEl = [] // Store cards as objects in array
 
 // Store card data
-const cards = getCardsData()
+const cardsData = getCardsData()
 
 // Create all cards
 function createCards() {
@@ -127,7 +127,7 @@ addQuestionBtn.addEventListener('click', () => {
     console.log(question, answer)
 
     if (question.trim() && answer.trim()) {
-        const newCard = {question, answer}
+        const newCard = { question, answer }
 
         createCard(newCard)
 
