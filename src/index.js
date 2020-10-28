@@ -15,10 +15,10 @@ const addContainer = document.getElementById("add-container")
 let currentActiveCard = 0 // Which card to show
 
 // Store DOM cards
-const cardsEl = [] // Store DOM cards in array of elements
+const cardsEl = [] // Store cards as objects in array
 
 // Store card data
-const cards = setCardsData()
+const cards = getCardsData()
 
 // Create all cards
 function createCards() {
@@ -69,7 +69,7 @@ function updateCurrentText() {
 }
 
 // Get cards from local storage
-function setCardsData() {
+function getCardsData() {
     const cards = JSON.parse(localStorage.getItem('cards')) // Parses item cards from localStorage from string to JS object (array)
     return cards === null ? [] : cards // Returns cards if not null, if null returns empty array
 }
@@ -77,7 +77,7 @@ function setCardsData() {
 // Add cards to local storage
 function setCardsData(cards) {
     localStorage.setItem('cards', JSON.stringify(cards)) // Convert cards array to string
-    window.location.reload // Targeting the BOM - to reflect cards data on the DOM
+    window.location.reload() // Targeting the BOM - to reflect cards data on the DOM
 }
 
 createCards()
@@ -145,5 +145,5 @@ addQuestionBtn.addEventListener('click', () => {
 clearBtn.addEventListener('click', () => {
     localStorage.clear() // Clears local storage
     cardsContainer.innerHTML = ''
-    window.reload() // Reloads browser window
+    window.location.reload() // Reloads browser window
 })
