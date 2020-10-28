@@ -15,7 +15,7 @@ const addContainer = document.getElementById("add-container")
 let currentActiveCard = 0 // Which card to show
 
 // Store DOM cards
-const cardEl = [] // Store DOM cards in array of elements
+const cardsEl = [] // Store DOM cards in array of elements
 
 // Store card data
 const cards = getCardsData()
@@ -56,7 +56,7 @@ function createCard() {
     card.addEventListener('click', () => card.classList.toggle('show-answer'))
 
     // Add to DOM cards
-    cardEl.push(card)
+    cardsEl.push(card)
 
     cardsContainer.appendChild(card)
 
@@ -81,3 +81,69 @@ function setCardsData(cards) {
 }
 
 createCards()
+
+// Event Listeners
+
+// Next button
+nextBtn.addEventListener('click', () => {
+    cardsEl[currentActiveCard].className = 'card left'
+    currentActiveCard = currentActiveCard + 1 // If we are at 1 it will be 2 and so on
+
+    // We need to set the index on the last card
+    if (currentActiveCard > cardsEl.length - 1) { // our array is a 0 index base
+        currentActiveCard = cardsEl.length -1
+    }
+
+    cardsEl[currentActiveCard].className = 'card active' // Sets the next card to active by overwriting with class
+
+    updateCurrentText() // To update the card numbers
+})
+
+// Prev button
+prevBtn.addEventListener('click', () => {
+    cardsEl[currentActiveCard].className = 'card right'
+    currentActiveCard = currentActiveCard - 1
+
+    // Need conditional to prevent overflow i.e. below 0 index
+    if (currentActiveCard < 0) {
+        currentActiveCard = 0
+    }
+
+    cardsEl[currentActiveCard].className = 'card active'
+
+    updateCurrentText()
+})
+
+// Show add container
+showBtn.addEventListener('click', addContainer.classList.add('show'))
+
+// Hide add container
+hideBtn.addEventListener('click', addContainer.classList.remove('show'))
+
+// Add new card
+addQuestionBtn.addEventListener('click', () => {
+    const question = questionEl.value
+    const answer = answerEl.value
+    console.log(question, answer)
+
+    if (question.trim() && answer.trim()) {
+        const newCard = {question, answer}
+
+        createCard(newCard)
+
+        questionEl.value = ''
+        answerEl.value = ''
+
+        addContainer.classList.remove('show')
+
+        cardsData.push(newCard)
+        setCardsData(cardsData)
+    }
+})
+
+// Clear button
+clearBtn.addEventListener('click', () => {
+    localStorage.clear() // Clears local storage
+    cardsContainer.innerHTML = ''
+    window.reload() // Reloads browser window
+})
