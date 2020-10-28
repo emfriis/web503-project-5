@@ -3,8 +3,8 @@ const cardsContainer = document.getElementById("cards-container")
 const prevBtn = document.getElementById("prev")
 const nextBtn = document.getElementById("next")
 const currentEl = document.getElementById("current")
-const showEl = document.getElementById("show")
-const hideEl = document.getElementById("hide")
+const showBtn = document.getElementById("show")
+const hideBtn = document.getElementById("hide")
 const questionEl = document.getElementById("question")
 const answerEl = document.getElementById("answer")
 const addQuestionBtn = document.getElementById("add-question")
@@ -18,7 +18,7 @@ let currentActiveCard = 0 // Which card to show
 const cardsEl = [] // Store DOM cards in array of elements
 
 // Store card data
-const cards = getCardsData()
+const cards = setCardsData()
 
 // Create all cards
 function createCards() {
@@ -69,7 +69,7 @@ function updateCurrentText() {
 }
 
 // Get cards from local storage
-function getCardsData() {
+function setCardsData() {
     const cards = JSON.parse(localStorage.getItem('cards')) // Parses item cards from localStorage from string to JS object (array)
     return cards === null ? [] : cards // Returns cards if not null, if null returns empty array
 }
