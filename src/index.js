@@ -26,7 +26,7 @@ function createCards() {
 }
 
 // Create a single card in the DOM
-function createCard() {
+function createCard(data, index) {
     const card = document.createElement('div') // Create element with tag div
     card.classList.add('card') // Adds 'card' class to card
 
